@@ -4,7 +4,6 @@ import {router} from './router/index';
 import store from './store';
 import App from './app.vue';
 import 'iview/dist/styles/iview.css';
-12312312
 
 Vue.use(iView);
 

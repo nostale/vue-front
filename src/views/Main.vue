@@ -84,10 +84,11 @@ export default {
 </script>
 -->
 
-<style scoped>
+<style>
     .layout{
         border: 1px solid #d7dde4;
         background: #f5f7f9;
+        overflow: hidden;
     }
     .layout-logo{
         width: 100px;
@@ -106,103 +107,87 @@ export default {
         margin-left: 200px;
         height: inherit;
     }
-    .layout-breadcrumb{
-        padding: 10px 15px 0;
-    }
     .layout-content{
+        width: 100%;
         min-height: 200px;
-        margin: 15px;
         overflow: hidden;
         background: #fff;
         border-radius: 4px;
+        display: flex;
     }
     .layout-content-main{
-        padding: 10px;
+        width: 100%;
+    }
+    .layout-content-main-breadcrumb{
+        padding: 10px 15px 10px;
+        border-bottom: 1px #dddee1 solid;
+    }
+    .layout-content-main-view{
+        padding: 15px;
+        width: 100%;
     }
     .layout-copy{
         text-align: center;
         padding: 10px 0 20px;
         color: #9ea7b4;
     }
+    .ivu-menu-item-group>ul{
+        display: flex;
+    }
+    .ivu-select-dropdown{
+        left: -50px!important;
+    }
+    .layout-content-menu{
+        min-width:200px;
+        z-index: 1;
+    }
+    .layout-content-menu>ul{
+      overflow: auto;
+    }
 </style>
 <template>
     <div class="layout">
-        <Menu mode="horizontal" theme="dark" active-name="1" @on-select="topMenu">
+        <Menu mode="horizontal" :active-name="pickLeftMenuAN" theme="dark" @on-select="topMenu">
             <div class="layout-logo"></div>
-            <div class="layout-nav">
-                <MenuItem name="1">
-                    导航一
+            <div class="layout-nav" style="width: 100%;">
+                <MenuItem name="home">
+                    首页
                 </MenuItem>
-                <MenuItem name="2">
-                    导航二
-                </MenuItem>
-                <MenuItem name="3">
-                    导航三
-                </MenuItem>
-                <MenuItem name="4">
-                    导航四
-                </MenuItem>
-                <MenuItem name="5">
-                    导航一
-                </MenuItem>
-                <MenuItem name="6">
-                    导航二
-                </MenuItem>
-                <MenuItem name="7">
-                    导航三
-                </MenuItem>
-                <MenuItem name="8">
-                    导航四
-                </MenuItem>
-                <MenuItem name="9">
-                    导航四
-                </MenuItem>
+                <Submenu :name="key" :key="key" v-for="(item, key) in menuList">
+                    <template slot="title">
+                        <Icon :type="item.icon"></Icon>
+                        {{item.name}}
+                    </template>
+                    <MenuGroup :title="child.name" :key="childkey" v-for="(child, childkey) in item.children">
+                      <MenuItem :name="key+'-'+childkey+'-'+k" :key="k" v-for="(i, k) in child.children">{{i.name}}</MenuItem>
+                    </MenuGroup>
+                </Submenu>
             </div>
         </Menu>
-        <!-- <Menu mode="horizontal" active-name="1">
-            <div class="layout-assistant">
-                <MenuItem name="1">Option 1</MenuItem>
-                <MenuItem name="2">Option 2</MenuItem>
-                <MenuItem name="3">Option 3</MenuItem>
-            </div>
-        </Menu> -->
         <div class="layout-content">
-            <Row>
-                <Col span="4">
-                    <Menu active-name="1-2" width="auto" :open-names="['1']">
-                        <Submenu name="1">
-                            <template slot="title">
-                                <Icon type="ios-navigate"></Icon>
-                                Item 1
-                            </template>
-                            <MenuItem name="1-1">Option 1</MenuItem>
-                            <MenuItem name="1-2">Option 2</MenuItem>
-                            <MenuItem name="1-3">Option 3</MenuItem>
-                        </Submenu>
-                        <Submenu name="2">
-                            <template slot="title">
-                                <Icon type="ios-keypad"></Icon>
-                                Item 2
-                            </template>
-                            <MenuItem name="2-1">Option 1</MenuItem>
-                            <MenuItem name="2-2">Option 2</MenuItem>
-                        </Submenu>
-                        <Submenu name="3">
-                            <template slot="title">
-                                <Icon type="ios-analytics"></Icon>
-                                Item 3
-                            </template>
-                            <MenuItem name="3-1">Option 1</MenuItem>
-                            <MenuItem name="3-2">Option 2</MenuItem>
-                        </Submenu>
-                    </Menu>
-                </Col>
-                <Col span="20">
-                    <div class="layout-content-main">
-                        <router-view></router-view>
-                    </div>
-                </Col>
-            </Row>
+          <div class="layout-content-menu">
+            <Menu ref="leftMenu" :active-name="pickLeftMenuAN" width="auto" :open-names="pickLeftMenuON" :style="menuHeight" @on-select="LeftMenu">
+                <Submenu :name="pickNumber+'-'+key" :key="key" v-for="(item, key) in leftMenu.children">
+                    <template slot="title">
+                        <Icon :type="item.icon"></Icon>
+                        {{item.name}}
+                    </template>
+                    <MenuItem :name="pickNumber+'-'+key+'-'+k" :key="k" v-for="(i, k) in item.children">{{i.name}}</MenuItem>
+                </Submenu>
+            </Menu>
+          </div>
+          <div class="layout-content-main">
+              <div class="layout-content-main-breadcrumb">
+                  <Breadcrumb>
+                      <BreadcrumbItem href="#">Home</BreadcrumbItem>
+                      <BreadcrumbItem href="#">Projects</BreadcrumbItem>
+                      <BreadcrumbItem>iView</BreadcrumbItem>
+                  </Breadcrumb>
+              </div>
+              <div class="layout-content-main-view">
+                <router-view></router-view>
+              </div>
+          </div>
         </div>
         <div class="layout-copy">
             2011-2016 &copy; TalkingData
@@ -211,9 +196,266 @@ export default {
 </template>
 <script>
     export default {
+      created(){
+        console.log(this.menuList);
+      },
+      data(){
+        return {
+          pickLeftMenuAN:'',
+          pickLeftMenuON:[],
+          pickNumber:0,
+          leftMenu:[],
+          menuList:[{
+            key:'order',
+            name:'导航一',
+            icon:'stats-bars',
+            path:'',
+            children:[{
+              key:'ordertitle',
+              name:'头部导航二',
+              icon:'',
+              path:'',
+              children:[{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              }]
+            },{
+              key:'ordertitle',
+              name:'头部导航二',
+              icon:'',
+              path:'',
+              children:[{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              }]
+            }]
+          },{
+            key:'order',
+            name:'导航一',
+            icon:'stats-bars',
+            path:'',
+            children:[{
+              key:'ordertitle',
+              name:'头部导航二',
+              icon:'',
+              path:'',
+              children:[{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              }]
+            },{
+              key:'ordertitle',
+              name:'头部导航二',
+              icon:'',
+              path:'',
+              children:[{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              }]
+            },{
+              key:'ordertitle',
+              name:'头部导航二',
+              icon:'',
+              path:'',
+              children:[{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              }]
+            },{
+              key:'ordertitle',
+              name:'头部导航二',
+              icon:'',
+              path:'',
+              children:[{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              },{
+                key:'ordertitle',
+                name:'头部导航三',
+                icon:'',
+                path:'',
+              }]
+            }]
+          }],
+          menuHeight:{
+            height: document.documentElement.clientHeight  - 110 +'px',
+            paddingTop: '20px',
+          }
+        }
+      },
       methods: {
-        topMenu(){
-          console.log(12312321);
+        topMenu(val){
+          let pickMenu = val.split('-');
+          this.pickLeftMenuAN = pickMenu[0]+'-'+pickMenu[1]+'-'+pickMenu[2];
+          this.pickNumber = pickMenu[0]
+          this.leftMenu = this.menuList[pickMenu[0]]
+          this.pickLeftMenuON = [pickMenu[0]+'-'+pickMenu[1]]
+          setTimeout(()=>{
+            this.$nextTick(() => {
+                this.$refs.leftMenu.updateOpened();
+                this.$refs.leftMenu.updateActiveName()
+            });
+          })
+        },
+        LeftMenu(val){
+          this.pickLeftMenuAN = val;
         }
       }
     }
