@@ -142,7 +142,7 @@ export default {
         z-index: 1;
     }
     .layout-content-menu>ul{
-      overflow: auto;
+        overflow: auto;
     }
 </style>
 <template>
@@ -192,6 +192,7 @@ export default {
         <div class="layout-copy">
             2011-2016 &copy; TalkingData
         </div>
+        <BackTop></BackTop>
     </div>
 </template>
 <script>
