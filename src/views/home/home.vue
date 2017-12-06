@@ -12,6 +12,16 @@
             <Tag checkable :checked="false" color="blue">标签二</Tag>
             <Tag checkable :checked="false" color="blue">标签三</Tag>
             <Tag checkable :checked="false" color="blue">标签四</Tag>
+            <span class="" style="float:right">
+              <ButtonGroup>
+                <Button type="primary" size="small">
+                  筛选
+                </Button>
+                <Button size="small">
+                  搜索
+                </Button>
+              </ButtonGroup>
+            </span>
           </div>
           <div class="" style="margin-top:5px;">
             <span style="padding-right:20px;">店铺账号 ：</span>
@@ -147,7 +157,7 @@
     </div>
   </div>
   <br/>
-  <tbl />
+  <tbl :orderList="orderList" />
 </div>
 </template>
 <script>
@@ -164,6 +174,57 @@ export default {
       CountryAreaTab: 'key0',
       PickCountryArea: [],
       CountryAreaPoptipModal:false,
+
+      /* 订单数据 */
+      orderList:[{
+        ordersn: '20155454545454',
+        contact: '小明',
+        address: '地址1',
+        address2: '地址2',
+        city: '城市',
+        province: '省/州',
+        country: '国家',
+        goodsname: '名称sku',
+        goodsattr: '属性',
+        goodscount: '数量',
+        goodsprice: '单价',
+        ordercomment: '订单备注',
+        orderprice: 50000,
+        ordercreatetime: '2017-04-04 04:04:04',
+        orderpaytime: '2017-04-04 04:04:04',
+      },{
+        ordersn: '20155454545454',
+        contact: '小明',
+        address: '地址1',
+        address2: '地址2',
+        city: '城市',
+        province: '省/州',
+        country: '国家',
+        goodsname: '名称sku',
+        goodsattr: '属性',
+        goodscount: '数量',
+        goodsprice: '单价',
+        ordercomment: '订单备注',
+        orderprice: 50000,
+        ordercreatetime: '2017-04-04 04:04:04',
+        orderpaytime: '2017-04-04 04:04:04',
+      },{
+        ordersn: '20155454545454',
+        contact: '小明',
+        address: '地址1',
+        address2: '地址2',
+        city: '城市',
+        province: '省/州',
+        country: '国家',
+        goodsname: '名称sku',
+        goodsattr: '属性',
+        goodscount: '数量',
+        goodsprice: '单价',
+        ordercomment: '订单备注',
+        orderprice: 50000,
+        ordercreatetime: '2017-04-04 04:04:04',
+        orderpaytime: '2017-04-04 04:04:04',
+      },],
 
       value: "1",
       value1: "1",

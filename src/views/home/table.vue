@@ -1,15 +1,15 @@
 <template>
-<div class="ivu-table-wrapper" style="width:1200px">
+<div class="ivu-table-wrapper" style="width:1300px">
   <div class="ivu-table ivu-table-border">
     <div class="ivu-table-header">
-      <table cellspacing="0" cellpadding="0" border="0" style="width: 1199px;">
+      <table cellspacing="0" cellpadding="0" border="0" style="width: 1299px;">
         <colgroup>
           <col width="60">
           <col width="162">
           <col width="162">
           <col width="163">
           <col width="163">
-          <col width="163">
+          <col width="253">
           <col width="163">
           <col width="163">
         </colgroup>
@@ -52,19 +52,19 @@
         </thead>
       </table>
     </div>
-    <div class="ivu-table-body">
-      <table cellspacing="0" cellpadding="0" border="0" style="width: 1199px;">
+    <div class="ivu-table-body" v-show="orderList.length>0">
+      <table cellspacing="0" cellpadding="0" border="0" style="width: 1299px;">
         <colgroup>
           <col width="60">
           <col width="162">
           <col width="162">
           <col width="163">
           <col width="163">
-          <col width="163">
+          <col width="253">
           <col width="163">
           <col width="163">
         </colgroup>
-        <tbody class="ivu-table-tbody">
+        <tbody class="ivu-table-tbody" v-for="(item, key) in orderList">
           <tr class="ivu-table-row tr-head">
             <td class="ivu-table-column-center td-head">
               <div class="ivu-table-cell">
@@ -88,26 +88,17 @@
                     <div class="td-tag yellow"></div>
                   </Tooltip>
                 </span>
-                <!-- <Tag type="dot" color="blue">无描述</Tag>
-                <Tag type="dot" color="green"></Tag>
-                <Tag type="dot" color="red"></Tag>
-                <Tag type="dot" color="yellow"></Tag> -->
               </div>
             </td>
             <td class="td-head" colspan="2">
             </td>
             <td class="td-head">
               <div class="ivu-table-cell">
-                <span>采集</span>
+                <span>「手工订单」</span>
               </div>
             </td>
           </tr>
           <tr class="ivu-table-row">
-            <!-- <td class="ivu-table-column-center">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td> -->
             <td class="" colspan="2">
               <div class="ivu-table-cell">
                 <div class="ivu-table-cell-info">
@@ -121,29 +112,29 @@
                   </div>
                   <div class="ivu-table-cell-info-list">
                     <p>
-                      <span style="font-size:14px;height:20px;vertical-align: middle;">名称 * </span>
-                      <Badge count="10"></Badge>
+                      <span style="font-size:14px;height:20px;vertical-align: middle;">{{item.goodsname}} * </span>
+                      <Badge :count="item.goodscount"></Badge>
                     </p>
-                    <p>USD 2000</p>
-                    <p>- -</p>
+                    <p>USD {{item.goodsprice}}</p>
+                    <p>{{item.goodsattr}}</p>
                   </div>
                 </div>
               </div>
             </td>
             <td class="">
               <div class="ivu-table-cell">
-                <span>18</span>
+                <span>{{item.orderprice}}</span>
               </div>
             </td>
             <td class="">
               <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
+                <span>{{item.contact}} 【{{item.country}}】</span>
               </div>
             </td>
             <td class="">
               <div class="ivu-table-cell">
                 <Poptip trigger="hover">
-                    <a>201717171717</a>
+                    <a>{{item.ordersn}}</a>
                     <div slot="content">
                         <a>复制</a>
                     </div>
@@ -152,782 +143,30 @@
             </td>
             <td class="">
               <div class="ivu-table-cell">
-                <span>18</span>
+                <p> 下单时间: {{item.ordercreatetime}}</p>
+                <p> 付款时间: {{item.orderpaytime}}</p>
               </div>
             </td>
             <td class="">
               <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
+                <span>已付款</span>
               </div>
             </td>
             <td class="">
               <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row tr-head">
-            <td class="ivu-table-column-center td-head">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td>
-            <td class="td-head" colspan="4">
-              <div class="ivu-table-cell">
-                <span>BAOGUOHAO_XM1122</span>
-                <span class="" style="margin-left:20px;">
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag blue"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag green"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag red"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag yellow"></div>
-                  </Tooltip>
-                </span>
-                <!-- <Tag type="dot" color="blue">无描述</Tag>
-                <Tag type="dot" color="green"></Tag>
-                <Tag type="dot" color="red"></Tag>
-                <Tag type="dot" color="yellow"></Tag> -->
-              </div>
-            </td>
-            <td class="td-head" colspan="2">
-            </td>
-            <td class="td-head">
-              <div class="ivu-table-cell">
-                <span>采集</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row">
-            <!-- <td class="ivu-table-column-center">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td> -->
-            <td class="" colspan="2">
-              <div class="ivu-table-cell">
-                <div class="ivu-table-cell-info">
-                  <div class="ivu-table-cell-info-img">
-                    <Poptip trigger="hover" content="提示内容" placement="right">
-                      <div class="poptip-img"><img style="width:60px;height:60px;" src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt=""></div>
-                      <div class="" slot="content">
-                        <img src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt="">
-                      </div>
-                    </Poptip>
-                  </div>
-                  <div class="ivu-table-cell-info-list">
-                    <p>
-                      <span style="font-size:14px;height:20px;vertical-align: middle;">名称 * </span>
-                      <Badge count="10"></Badge>
-                    </p>
-                    <p>USD 2000</p>
-                    <p>- -</p>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <Poptip trigger="hover">
-                    <a>201717171717</a>
-                    <div slot="content">
-                        <a>复制</a>
-                    </div>
-                </Poptip>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row tr-head">
-            <td class="ivu-table-column-center td-head">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td>
-            <td class="td-head" colspan="4">
-              <div class="ivu-table-cell">
-                <span>BAOGUOHAO_XM1122</span>
-                <span class="" style="margin-left:20px;">
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag blue"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag green"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag red"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag yellow"></div>
-                  </Tooltip>
-                </span>
-                <!-- <Tag type="dot" color="blue">无描述</Tag>
-                <Tag type="dot" color="green"></Tag>
-                <Tag type="dot" color="red"></Tag>
-                <Tag type="dot" color="yellow"></Tag> -->
-              </div>
-            </td>
-            <td class="td-head" colspan="2">
-            </td>
-            <td class="td-head">
-              <div class="ivu-table-cell">
-                <span>采集</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row">
-            <!-- <td class="ivu-table-column-center">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td> -->
-            <td class="" colspan="2">
-              <div class="ivu-table-cell">
-                <div class="ivu-table-cell-info">
-                  <div class="ivu-table-cell-info-img">
-                    <Poptip trigger="hover" content="提示内容" placement="right">
-                      <div class="poptip-img"><img style="width:60px;height:60px;" src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt=""></div>
-                      <div class="" slot="content">
-                        <img src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt="">
-                      </div>
-                    </Poptip>
-                  </div>
-                  <div class="ivu-table-cell-info-list">
-                    <p>
-                      <span style="font-size:14px;height:20px;vertical-align: middle;">名称 * </span>
-                      <Badge count="10"></Badge>
-                    </p>
-                    <p>USD 2000</p>
-                    <p>- -</p>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <Poptip trigger="hover">
-                    <a>201717171717</a>
-                    <div slot="content">
-                        <a>复制</a>
-                    </div>
-                </Poptip>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row tr-head">
-            <td class="ivu-table-column-center td-head">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td>
-            <td class="td-head" colspan="4">
-              <div class="ivu-table-cell">
-                <span>BAOGUOHAO_XM1122</span>
-                <span class="" style="margin-left:20px;">
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag blue"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag green"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag red"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag yellow"></div>
-                  </Tooltip>
-                </span>
-                <!-- <Tag type="dot" color="blue">无描述</Tag>
-                <Tag type="dot" color="green"></Tag>
-                <Tag type="dot" color="red"></Tag>
-                <Tag type="dot" color="yellow"></Tag> -->
-              </div>
-            </td>
-            <td class="td-head" colspan="2">
-            </td>
-            <td class="td-head">
-              <div class="ivu-table-cell">
-                <span>采集</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row">
-            <!-- <td class="ivu-table-column-center">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td> -->
-            <td class="" colspan="2">
-              <div class="ivu-table-cell">
-                <div class="ivu-table-cell-info">
-                  <div class="ivu-table-cell-info-img">
-                    <Poptip trigger="hover" content="提示内容" placement="right">
-                      <div class="poptip-img"><img style="width:60px;height:60px;" src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt=""></div>
-                      <div class="" slot="content">
-                        <img src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt="">
-                      </div>
-                    </Poptip>
-                  </div>
-                  <div class="ivu-table-cell-info-list">
-                    <p>
-                      <span style="font-size:14px;height:20px;vertical-align: middle;">名称 * </span>
-                      <Badge count="10"></Badge>
-                    </p>
-                    <p>USD 2000</p>
-                    <p>- -</p>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <Poptip trigger="hover">
-                    <a>201717171717</a>
-                    <div slot="content">
-                        <a>复制</a>
-                    </div>
-                </Poptip>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row tr-head">
-            <td class="ivu-table-column-center td-head">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td>
-            <td class="td-head" colspan="4">
-              <div class="ivu-table-cell">
-                <span>BAOGUOHAO_XM1122</span>
-                <span class="" style="margin-left:20px;">
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag blue"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag green"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag red"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag yellow"></div>
-                  </Tooltip>
-                </span>
-                <!-- <Tag type="dot" color="blue">无描述</Tag>
-                <Tag type="dot" color="green"></Tag>
-                <Tag type="dot" color="red"></Tag>
-                <Tag type="dot" color="yellow"></Tag> -->
-              </div>
-            </td>
-            <td class="td-head" colspan="2">
-            </td>
-            <td class="td-head">
-              <div class="ivu-table-cell">
-                <span>采集</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row">
-            <!-- <td class="ivu-table-column-center">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td> -->
-            <td class="" colspan="2">
-              <div class="ivu-table-cell">
-                <div class="ivu-table-cell-info">
-                  <div class="ivu-table-cell-info-img">
-                    <Poptip trigger="hover" content="提示内容" placement="right">
-                      <div class="poptip-img"><img style="width:60px;height:60px;" src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt=""></div>
-                      <div class="" slot="content">
-                        <img src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt="">
-                      </div>
-                    </Poptip>
-                  </div>
-                  <div class="ivu-table-cell-info-list">
-                    <p>
-                      <span style="font-size:14px;height:20px;vertical-align: middle;">名称 * </span>
-                      <Badge count="10"></Badge>
-                    </p>
-                    <p>USD 2000</p>
-                    <p>- -</p>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <Poptip trigger="hover">
-                    <a>201717171717</a>
-                    <div slot="content">
-                        <a>复制</a>
-                    </div>
-                </Poptip>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row tr-head">
-            <td class="ivu-table-column-center td-head">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td>
-            <td class="td-head" colspan="4">
-              <div class="ivu-table-cell">
-                <span>BAOGUOHAO_XM1122</span>
-                <span class="" style="margin-left:20px;">
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag blue"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag green"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag red"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag yellow"></div>
-                  </Tooltip>
-                </span>
-                <!-- <Tag type="dot" color="blue">无描述</Tag>
-                <Tag type="dot" color="green"></Tag>
-                <Tag type="dot" color="red"></Tag>
-                <Tag type="dot" color="yellow"></Tag> -->
-              </div>
-            </td>
-            <td class="td-head" colspan="2">
-            </td>
-            <td class="td-head">
-              <div class="ivu-table-cell">
-                <span>采集</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row">
-            <!-- <td class="ivu-table-column-center">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td> -->
-            <td class="" colspan="2">
-              <div class="ivu-table-cell">
-                <div class="ivu-table-cell-info">
-                  <div class="ivu-table-cell-info-img">
-                    <Poptip trigger="hover" content="提示内容" placement="right">
-                      <div class="poptip-img"><img style="width:60px;height:60px;" src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt=""></div>
-                      <div class="" slot="content">
-                        <img src="https://o5wwk8baw.qnssl.com/a42bdcc1178e62b4694c830f028db5c0/avatar" alt="">
-                      </div>
-                    </Poptip>
-                  </div>
-                  <div class="ivu-table-cell-info-list">
-                    <p>
-                      <span style="font-size:14px;height:20px;vertical-align: middle;">名称 * </span>
-                      <Badge count="10"></Badge>
-                    </p>
-                    <p>USD 2000</p>
-                    <p>- -</p>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <Poptip trigger="hover">
-                    <a>201717171717</a>
-                    <div slot="content">
-                        <a>复制</a>
-                    </div>
-                </Poptip>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row tr-head">
-            <td class="ivu-table-column-center td-head">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td>
-            <td class="td-head" colspan="4">
-              <div class="ivu-table-cell">
-                <span>BAOGUOHAO_XM1122</span>
-                <span class="" style="margin-left:20px;">
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag blue"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag green"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag red"></div>
-                  </Tooltip>
-                  <Tooltip content="Top Center 文字提示" placement="top">
-                    <div class="td-tag yellow"></div>
-                  </Tooltip>
-                  <Poptip title="提示标题" content="提示内容">
-                    <Button size="small">修改</Button>
-                  </Poptip>
-                </span>
-                <!-- <Tag type="dot" color="blue">无描述</Tag>
-                <Tag type="dot" color="green"></Tag>
-                <Tag type="dot" color="red"></Tag>
-                <Tag type="dot" color="yellow"></Tag> -->
-              </div>
-            </td>
-            <td class="td-head" colspan="2">
-            </td>
-            <td class="td-head">
-              <div class="ivu-table-cell">
-                <span>采集</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row">
-            <!-- <td class="ivu-table-column-center">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td> -->
-            <td class="" colspan="2">
-              <div class="ivu-table-cell">
-                <div class="ivu-table-cell-info">
-                  <div class="ivu-table-cell-info-img">
-                    <Poptip trigger="hover" content="提示内容" placement="right">
-                      <div class="poptip-img"><img style="width:60px;height:60px;" src="https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar" alt=""></div>
-                      <div class="" slot="content">
-                        <img src="https://o5wwk8baw.qnssl.com/bc7521e033abdd1e92222d733590f104/avatar" alt="">
-                      </div>
-                    </Poptip>
-                  </div>
-                  <div class="ivu-table-cell-info-list">
-                    <p>
-                      <span style="font-size:14px;height:20px;vertical-align: middle;">名称 * </span>
-                      <Badge count="10"></Badge>
-                    </p>
-                    <p>USD 2000</p>
-                    <p>- -</p>
-                  </div>
-                </div>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <Poptip trigger="hover">
-                    <a>201717171717</a>
-                    <div slot="content">
-                        <a>复制</a>
-                    </div>
-                </Poptip>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row tr-head">
-            <td class="ivu-table-column-center td-head">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td>
-            <td class="td-head" colspan="4">
-              <div class="ivu-table-cell">
-                <span>BAOGUOHAO_XM1122</span>
-                <Tag type="dot" color="blue">无描述</Tag>
-                <Tag type="dot" color="green"></Tag>
-                <Tag type="dot" color="red"></Tag>
-                <Tag type="dot" color="yellow"></Tag>
-              </div>
-            </td>
-            <td class="td-head" colspan="2">
-            </td>
-            <td class="td-head">
-              <div class="ivu-table-cell">
-                <span>采集</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row">
-            <td class="ivu-table-column-center">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>John Brown</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>John Brown</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>18</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>New York No. 1 Lake Park</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row">
-            <td class="ivu-table-column-center">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>Jim Green</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>24</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>London No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>Jim Green</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>24</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>London No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>London No. 1 Lake Park</span>
-              </div>
-            </td>
-          </tr>
-          <tr class="ivu-table-row">
-            <td class="ivu-table-column-center">
-              <div class="ivu-table-cell">
-                <Checkbox></Checkbox>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>Joe Black</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>30</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>Sydney No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>Joe Black</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>30</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>Sydney No. 1 Lake Park</span>
-              </div>
-            </td>
-            <td class="">
-              <div class="ivu-table-cell">
-                <span>Sydney No. 1 Lake Park</span>
+                <a href="#">按钮1</a>
+                <a href="#">按钮1</a>
+                <a href="#">按钮1</a>
+                <!-- <p><Button size="small">按钮1</Button></p>
+                <p><Button size="small">按钮2</Button></p>
+                <p><Button size="small">按钮2</Button></p> -->
               </div>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <div class="ivu-table-tip" style="display: none;">
+    <div class="ivu-table-tip" v-show="orderList.length<=0">
       <table cellspacing="0" cellpadding="0" border="0">
         <tbody>
           <tr>
@@ -941,9 +180,14 @@
 </template>
 <script>
 export default {
+  props:{
+    orderList:{
+      type: Array,
+      default: [],
+    }
+  },
   methods:{
     ShowPoptip(){
-      console.log(12312321);
       render: (h, params) => {
         return h('Tag', {
             props: {
